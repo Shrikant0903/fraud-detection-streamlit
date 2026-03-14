@@ -5,8 +5,13 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 # Load model
-with open("../Models/fraud_model.pkl", "rb") as f:
-    model = pickle.load(f)
+import os
+import joblib
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "..", "Models", "fraud_model.pkl")
+
+model = joblib.load(model_path)
 
 app = FastAPI()
 @app.get("/")
